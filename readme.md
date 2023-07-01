@@ -1,4 +1,4 @@
-# M5 - BandKamp Generic View
+# M5 - Kenzie Commerce
 
 ## Instalação dos pacotes de teste
 
