@@ -11,8 +11,8 @@ class Address(models.Model):
     block = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=50)
 
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         "users.User",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="address",
     )

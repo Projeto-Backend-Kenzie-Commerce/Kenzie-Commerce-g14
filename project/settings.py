@@ -45,7 +45,10 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework"]
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "drf_spectacular",
+]
 
 MY_APPS = [
     "address",
@@ -91,19 +94,26 @@ WSGI_APPLICATION = "project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "USERNAME": os.getenv("POSTGRE_USERNAME"),
+#         "PASSWORD": os.getenv("POSTGRE_PASSWORD"),
+#         "DB_NAME": os.getenv("POSTGRE_DB_NAME"),
+#         "DB_HOST": os.getenv("POSTGRE_DB_HOST"),
+#         "DB_PORT": os.getenv("POSTGRE_DB_PORT"),
+#     },
+#     "test": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     },
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "USERNAME": os.getenv("POSTGRE_USERNAME"),
-        "PASSWORD": os.getenv("POSTGRE_PASSWORD"),
-        "DB_NAME": os.getenv("POSTGRE_DB_NAME"),
-        "DB_HOST": os.getenv("POSTGRE_DB_HOST"),
-        "DB_PORT": os.getenv("POSTGRE_DB_PORT"),
-    },
-    "test": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    },
+    }
 }
 
 SIMPLE_JWT = {
@@ -156,4 +166,14 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "users.User"
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Kenzie Commerce",
+    "DESCRIPTION": "Uma API de E-commerce",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}

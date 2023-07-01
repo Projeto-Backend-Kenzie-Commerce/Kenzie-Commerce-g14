@@ -1,8 +1,14 @@
 from django.db import models
 
+
 class Product(models.Model):
     name = models.CharField(max_length=80)
-    price = models.DecimalField(decimal_places=2)
+    price = models.DecimalField(decimal_places=2, max_digits=12)
     description = models.TextField()
     stock_quantity = models.IntegerField()
-    # user = 
+
+    user = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="products",
+    )
