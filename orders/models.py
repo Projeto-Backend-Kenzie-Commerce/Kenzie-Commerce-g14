@@ -13,3 +13,7 @@ class Order(models.Model):
     )
     product_quantity = models.IntegerField()
     created_at = models.DateTimeField()
+
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="orders_owner")
+    is_employee = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="orders_sellers")
+    product = models.ManyToManyField("users.User", related_name="orders")
