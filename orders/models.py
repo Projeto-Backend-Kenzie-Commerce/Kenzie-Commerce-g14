@@ -8,7 +8,9 @@ class StatusChoices(models.TextChoices):
 
 
 class Order(models.Model):
-    status = models.CharField(choices=StatusChoices.choices,    default=StatusChoices.CONFIRMED)
+    status = models.CharField(
+        max_length=25, choices=StatusChoices.choices, default=StatusChoices.CONFIRMED
+    )
     product_quantity = models.IntegerField()
     created_at = models.DateTimeField()
 
