@@ -8,6 +8,10 @@ class StatusChoices(models.TextChoices):
 
 
 class Order(models.Model):
-    status = models.CharField(choices=StatusChoices.choices, default=StatusChoices.CONFIRMED)
+    status = models.CharField(choices=StatusChoices.choices,    default=StatusChoices.CONFIRMED)
     product_quantity = models.IntegerField()
     created_at = models.DateTimeField()
+
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="orders_owner")
+    is_employee = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="orders_sellers")
+    product = models.ManyToManyField("users.User", related_name="orders")
