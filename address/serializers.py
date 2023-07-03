@@ -1,15 +1,29 @@
 from rest_framework import serializers
-from users.models import User
-
-from users.serializers import UserSerializer
+from address.models import Address
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    username = serializers.SerializerMethodField(method_name="get_username")
+    email = serializers.SerializerMethodField(method_name="get_email")
 
     class Meta:
-        model = User
-        fields = "__all__"
+        model = Address
+        fields = [
+            "username",
+            "email",
+            "street",
+            "number",
+            "city",
+            "block",
+            "zip_code",
+            "user_id",
+        ]
 
-    def create(self, validated_data: dict) -> User:
-        return User.objects.create(**validated_data)
+    def get_username(self, obj):
+        return obj.user.username
+
+    def get_email(self, obj):
+        return obj.user.email
+
+    def create(self, validated_data: dict) -> Address:
+        return Address.objects.create(**validated_data)
