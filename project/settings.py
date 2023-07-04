@@ -94,27 +94,27 @@ WSGI_APPLICATION = "project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "USERNAME": os.getenv("POSTGRE_USERNAME"),
-#         "PASSWORD": os.getenv("POSTGRE_PASSWORD"),
-#         "DB_NAME": os.getenv("POSTGRE_DB_NAME"),
-#         "DB_HOST": os.getenv("POSTGRE_DB_HOST"),
-#         "DB_PORT": os.getenv("POSTGRE_DB_PORT"),
-#     },
-#     "test": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     },
-# }
-
 DATABASES = {
     "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRE_USERNAME"),
+        "PASSWORD": os.getenv("POSTGRE_PASSWORD"),
+        "DB_NAME": os.getenv("POSTGRE_DB_NAME"),
+        "DB_HOST": os.getenv("POSTGRE_DB_HOST"),
+        "DB_PORT": os.getenv("POSTGRE_DB_PORT"),
+    },
+    "test": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=15),
