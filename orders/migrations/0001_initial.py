@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,15 +14,53 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('confirmed', 'Confirmed'), ('in_progress', 'In Progress'), ('delivered', 'Delivered')], default='confirmed', max_length=25)),
-                ('product_quantity', models.IntegerField()),
-                ('created_at', models.DateTimeField()),
-                ('is_employee', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='orders_sellers', to=settings.AUTH_USER_MODEL)),
-                ('product', models.ManyToManyField(related_name='orders', to=settings.AUTH_USER_MODEL)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='orders_owner', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("confirmed", "Confirmed"),
+                            ("in_progress", "In Progress"),
+                            ("delivered", "Delivered"),
+                        ],
+                        default="confirmed",
+                        max_length=25,
+                    ),
+                ),
+                ("product_quantity", models.IntegerField()),
+                ("created_at", models.DateTimeField()),
+                (
+                    "is_employee",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="orders_sellers",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "product",
+                    models.ManyToManyField(
+                        related_name="orders", to=settings.AUTH_USER_MODEL
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="orders_owner",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

@@ -1,19 +1,39 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+
 from .models import User
+
+from rest_framework import serializers
+from address.models import Address
+
+
+class AddressSerializerInUser(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = [
+            "street",
+            "number",
+            "city",
+            "block",
+            "zip_code",
+        ]
 
 
 class UserSerializer(serializers.ModelSerializer):
+    address = AddressSerializerInUser(read_only=True, default={})
+
     class Meta:
         model = User
         fields = [
             "id",
             "username",
-            "email",
-            "password",
             "first_name",
             "last_name",
+            "email",
+            "password",
             "is_employee",
+            "is_admin",
+            "address",
             "is_active",
         ]
         read_only_fields = ["id"]
@@ -29,6 +49,9 @@ class UserSerializer(serializers.ModelSerializer):
             "email": {"validators": [UniqueValidator(queryset=User.objects.all())]},
             "password": {"write_only": True},
         }
+
+    def get_address(self, obj):
+        return obj.address
 
     def create(self, validated_data: dict) -> User:
         return User.objects.create_user(**validated_data)

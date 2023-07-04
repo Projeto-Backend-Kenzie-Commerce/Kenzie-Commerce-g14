@@ -1,9 +1,20 @@
 from rest_framework import serializers
-from .models import StatusChoices
+from .models import StatusChoices, Order
 
 
-class Order(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    status = serializers.ChoiceField(choices=StatusChoices.choices)
-    product_quantity = serializers.IntegerField()
-    created_at = serializers.DateTimeField(read_only=True)
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = [
+            "id",
+            "status",
+            "product_quantity",
+            "user_id",
+            "is_employee_id",
+            "product_id",
+            "created_at",
+        ]
+        read_only_fields = ["id"]
+
+    def create(self, validated_data: dict) -> Order:
+        return Order.objects.create(**validated_data)
