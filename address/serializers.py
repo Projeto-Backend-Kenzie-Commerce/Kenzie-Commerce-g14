@@ -1,15 +1,53 @@
 from rest_framework import serializers
-from users.models import User
+from address.models import Address, DeliveryAddress
 
-from users.serializers import UserSerializer
+
+class DeliveryAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryAddress
+        fields = [
+            "street",
+            "number",
+            "city",
+            "block",
+            "zip_code",
+            "is_default",
+        ]
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    username = serializers.SerializerMethodField(method_name="get_username")
+    email = serializers.SerializerMethodField(method_name="get_email")
 
     class Meta:
-        model = User
-        fields = "__all__"
+        model = Address
+        fields = [
+            "username",
+            "email",
+            "street",
+            "number",
+            "city",
+            "block",
+            "zip_code",
+            "delivery_address",
+            "user_id",
+        ]
 
-    def create(self, validated_data: dict) -> User:
-        return User.objects.create(**validated_data)
+    def get_username(self, obj):
+        return obj.user.username
+
+    def get_email(self, obj):
+        return obj.user.email
+
+    def create(self, validated_data: dict) -> Address:
+        delivery_address_data = validated_data.pop("delivery_address", {})
+        address = Address.objects.create(**validated_data)
+
+        if delivery_address_data:
+            delivery_address = DeliveryAddress.objects.create(
+                address=address, **delivery_address_data
+            )
+            address.delivery_address = delivery_address
+
+        address.save()
+        return address
