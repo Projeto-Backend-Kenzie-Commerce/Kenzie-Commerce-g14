@@ -1,18 +1,5 @@
 from rest_framework import serializers
-from address.models import Address, DeliveryAddress
-
-
-class DeliveryAddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DeliveryAddress
-        fields = [
-            "street",
-            "number",
-            "city",
-            "block",
-            "zip_code",
-            "is_default",
-        ]
+from address.models import Address
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -22,6 +9,7 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = [
+            "id",
             "username",
             "email",
             "street",
@@ -29,7 +17,7 @@ class AddressSerializer(serializers.ModelSerializer):
             "city",
             "block",
             "zip_code",
-            "delivery_address",
+            "is_default",
             "user_id",
         ]
 
@@ -40,14 +28,4 @@ class AddressSerializer(serializers.ModelSerializer):
         return obj.user.email
 
     def create(self, validated_data: dict) -> Address:
-        delivery_address_data = validated_data.pop("delivery_address", {})
-        address = Address.objects.create(**validated_data)
-
-        if delivery_address_data:
-            delivery_address = DeliveryAddress.objects.create(
-                address=address, **delivery_address_data
-            )
-            address.delivery_address = delivery_address
-
-        address.save()
-        return address
+        return Address.objects.create(**validated_data)

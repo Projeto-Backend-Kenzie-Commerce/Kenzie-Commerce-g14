@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import AddressView, DeliveryAddressView, DeliveryaddressDetailView
+from .views import AddressView, AddressDetailView
+
 
 urlpatterns = [
     path("users/<int:pk>/address/", AddressView.as_view()),

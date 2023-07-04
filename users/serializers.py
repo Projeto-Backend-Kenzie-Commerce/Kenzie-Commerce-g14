@@ -10,30 +10,24 @@ from address.models import Address
 class AddressSerializerInUser(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = [
-            "street",
-            "number",
-            "city",
-            "block",
-            "zip_code",
-        ]
+        fields = ["street", "number", "city", "block", "zip_code", "is_default"]
 
 
 class UserSerializer(serializers.ModelSerializer):
-    address = AddressSerializerInUser(read_only=True, default={})
+    addresses = AddressSerializerInUser(read_only=True, many=True)
 
     class Meta:
         model = User
         fields = [
             "id",
             "username",
+            "email",
             "first_name",
             "last_name",
-            "email",
             "password",
             "is_employee",
             "is_admin",
-            "address",
+            "addresses",
             "is_active",
         ]
         read_only_fields = ["id"]
