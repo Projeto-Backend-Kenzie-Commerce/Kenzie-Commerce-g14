@@ -26,27 +26,6 @@ class UserDetailView(RetrieveUpdateDestroyAPIView):
 # voltar o total_price e quantidade de produtos total na order com serializerMethodField.
 
 
-# class ProductView(CreateAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#     permission_classes = [IsSellerOrAdmin]  # Apenas vendedores ou administradores podem cadastrar produtos
-
-
-# class ProductDetailView(RetrieveUpdateDestroyAPIView):
-#     authentication_classes = [JWTAuthentication]
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#     lookup_url_kwarg = "pk"
-
-#     def get_permissions(self):
-#         if self.request.method == 'GET':
-#             return [IsClientOrAdmin()]  # Apenas clientes ou administradores podem visualizar
-#         elif self.request.method == 'PUT' or self.request.method == 'PATCH':
-#             return [IsSellerOrAdmin()]  # Apenas vendedores ou administradores podem atualizar
-#         elif self.request.method == 'DELETE':
-#             return [IsAdmin]  # Apenas administradores podem excluir
-
-
 # class OrderView(ListAPIView):
 #     serializer_class = OrderSerializer
 #     permission_classes = [IsSellerOrAdmin]  # Apenas vendedores ou administradores podem visualizar todos os pedidos vendidos
