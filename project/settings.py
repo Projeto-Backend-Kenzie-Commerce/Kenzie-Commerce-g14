@@ -97,11 +97,11 @@ WSGI_APPLICATION = "project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRE_USERNAME"),
+        "USERNAME": os.getenv("POSTGRE_USERNAME"),
         "PASSWORD": os.getenv("POSTGRE_PASSWORD"),
-        "DB_NAME": os.getenv("POSTGRE_DB_NAME"),
-        "DB_HOST": os.getenv("POSTGRE_DB_HOST"),
-        "DB_PORT": os.getenv("POSTGRE_DB_PORT"),
+        "NAME": os.getenv("POSTGRE_DB_NAME"),
+        "HOST": os.getenv("POSTGRE_DB_HOST"),
+        "PORT": os.getenv("POSTGRE_DB_PORT"),
     },
     "test": {
         "ENGINE": "django.db.backends.sqlite3",
