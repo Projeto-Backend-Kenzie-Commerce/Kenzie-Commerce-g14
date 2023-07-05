@@ -12,8 +12,8 @@ class Order(models.Model):
         max_length=25, choices=StatusChoices.choices, default=StatusChoices.CONFIRMED
     )
     product_quantity = models.IntegerField()
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="orders_owner")
     is_employee = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="orders_sellers")
-    product = models.ManyToManyField("users.User", related_name="orders")
+    product = models.ManyToManyField("products.Product", related_name="orders")
