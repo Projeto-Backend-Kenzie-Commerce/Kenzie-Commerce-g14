@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import StatusChoices, Order
+from django.shortcuts import get_object_or_404
+from products.models import Product
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -9,12 +11,23 @@ class OrderSerializer(serializers.ModelSerializer):
             "id",
             "status",
             "product_quantity",
-            "user_id",
-            "is_employee_id",
-            "product_id",
+            "user",
+            "is_employee",
+            "product",
             "created_at",
         ]
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "created_at"]
 
     def create(self, validated_data: dict) -> Order:
-        return Order.objects.create(**validated_data)
+        validated_data.pop("user")
+        validated_data.pop("is_employee")
+        data_products = validated_data.pop("product", [])
+
+        products = []
+        for product in data_products:
+            product = get_object_or_404(Product, id=product.id)
+            products.append(product)
+
+        order = Order.objects.create(**validated_data)
+        order.product.set(products)
+        return order
