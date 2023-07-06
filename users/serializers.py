@@ -10,7 +10,7 @@ from address.models import Address
 class AddressSerializerInUser(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ["street", "number", "city", "block", "zip_code", "is_default"]
+        fields = ["id", "street", "number", "city", "block", "zip_code", "is_default"]
 
 
 class ProductSerializerInUser(serializers.ModelSerializer):

@@ -3,5 +3,5 @@ from .views import CartView
 
 urlpatterns = [
     path("cart/product/<int:pk>/", CartView.as_view()),
-    path("cart/retrieve"),
+    # path("cart/retrieve"),
 ]

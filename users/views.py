@@ -1,9 +1,7 @@
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import User
-from .models import User
 from .serializers import UserSerializer
-from .permissions import IsAccountOwner
 from .permissions import IsAccountOwner
 
 
@@ -28,14 +26,6 @@ class UserDetailView(RetrieveUpdateDestroyAPIView):
 # voltar o total_price e quantidade de produtos total na order com serializerMethodField.
 
 
-# class OrderView(ListAPIView):
-#     serializer_class = OrderSerializer
-#     permission_classes = [IsSellerOrAdmin]  # Apenas vendedores ou administradores podem visualizar todos os pedidos vendidos
-
-#     def get_queryset(self):
-#         return Order.objects.filter(seller=self.request.user)
-
-
 # class CartView(RetrieveUpdateAPIView):
 #     authentication_classes = [JWTAuthentication]
 #     serializer_class = CartSerializer
@@ -43,12 +33,3 @@ class UserDetailView(RetrieveUpdateDestroyAPIView):
 
 #     def get_object(self):
 #         return Cart.objects.get(user=self.request.user)
-
-
-# class OrderClientView(ListAPIView):
-#     authentication_classes = [JWTAuthentication]
-#     serializer_class = OrderSerializer
-#     permission_classes = [IsClientOrAdmin]  # Apenas clientes ou administradores podem visualizar todos os pedidos comprados
-
-#     def get_queryset(self):
-#         return Order.objects.filter(client=self.request.user)
