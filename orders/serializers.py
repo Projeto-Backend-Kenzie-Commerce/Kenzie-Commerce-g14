@@ -51,7 +51,7 @@ class OrderSerializer(serializers.ModelSerializer):
             products.append(product)
 
         email = get_object_or_404(User, id=user.id)
-        mailing(product=products[0], email=email.email)
+        mailing(product=products[0].name, email=email.email)
 
         order = Order.objects.create(**validated_data)
         order.product.set(products)
