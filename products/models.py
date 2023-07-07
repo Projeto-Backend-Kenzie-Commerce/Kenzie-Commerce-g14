@@ -7,6 +7,7 @@ class Product(models.Model):
     description = models.TextField()
     stock_quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    is_available = models.BooleanField(null=True, default=True)
 
     user = models.ForeignKey(
         "users.User",

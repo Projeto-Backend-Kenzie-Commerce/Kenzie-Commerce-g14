@@ -24,8 +24,8 @@ class ProductDetailView(RetrieveUpdateDestroyAPIView):
 
     def get_permissions(self):
         if self.request.method == 'GET':
-            return [IsClientOrAdmin()]  # Apenas clientes ou administradores podem visualizar
+            return [IsClientOrAdmin()]
         elif self.request.method == 'PUT' or self.request.method == 'PATCH':
-            return [IsSellerOrAdmin()]  # Apenas vendedores ou administradores podem atualizar
+            return [IsSellerOrAdmin()]
         elif self.request.method == 'DELETE':
-            return [IsSellerOrAdmin()]            # Apenas administradores podem excluir
+            return [IsSellerOrAdmin()]
