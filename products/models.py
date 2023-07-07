@@ -6,6 +6,7 @@ class Product(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=12)
     description = models.TextField()
     stock_quantity = models.IntegerField()
+    category = models.CharField(max_length=80)
     created_at = models.DateTimeField(auto_now_add=True)
     is_available = models.BooleanField(null=True, default=True)
 
