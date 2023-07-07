@@ -3,6 +3,7 @@ from rest_framework.validators import UniqueValidator
 
 from orders.models import Order
 from products.models import Product
+from shop_cart.models import CartProduct
 from .models import User
 from address.models import Address
 
@@ -19,10 +20,10 @@ class ProductSerializerInUser(serializers.ModelSerializer):
         fields = ["name", "price", "description", "stock_quantity"]
 
 
-# class CartSerializerInUser(serializers.ModelSerializer):
-#     class Meta:
-#         model = 1
-#         fields = []
+class CartSerializerInUser(serializers.ModelSerializer):
+    class Meta:
+        model = CartProduct
+        fields = ["product", "quantity", "total"]
 
 
 class OrderSerializerInUser(serializers.ModelSerializer):
@@ -34,7 +35,7 @@ class OrderSerializerInUser(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     addresses = AddressSerializerInUser(read_only=True, many=True)
     products = ProductSerializerInUser(read_only=True, many=True)
-    # shop_cart = ProductSerializerInUser(read_only=True, many=True)
+    shop_cart = ProductSerializerInUser(read_only=True, many=True)
     orders = OrderSerializerInUser(read_only=True, many=True)
 
     date_of_birth = serializers.DateField(input_formats=["%d-%m-%Y"])
@@ -54,6 +55,7 @@ class UserSerializer(serializers.ModelSerializer):
             "is_admin",
             "addresses",
             "products",
+            "shop_cart",
             "orders",
             "is_active",
             "created_at",
