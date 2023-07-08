@@ -24,12 +24,3 @@ class UserDetailView(RetrieveUpdateDestroyAPIView):
 
 # Criar 2 colunas uma para a order comprada e a order vendida pq o user pode se vendedor tbm.
 # voltar o total_price e quantidade de produtos total na order com serializerMethodField.
-
-
-# class CartView(RetrieveUpdateAPIView):
-#     authentication_classes = [JWTAuthentication]
-#     serializer_class = CartSerializer
-#     permission_classes = [IsClientOrAdmin]  # Apenas clientes ou administradores podem adicionar produtos ao carrinho
-
-#     def get_object(self):
-#         return Cart.objects.get(user=self.request.user)
