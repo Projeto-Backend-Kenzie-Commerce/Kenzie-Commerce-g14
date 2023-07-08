@@ -21,6 +21,7 @@ class Product(models.Model):
     )
 
 
+    
 # RATING_CHOICES = (
 #     (1, "1 estrela"),
 #     (2, "2 estrelas"),
