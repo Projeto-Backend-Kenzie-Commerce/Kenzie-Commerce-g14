@@ -6,7 +6,6 @@ from .serializers import OrderSerializer
 from users.permissions import IsSellerOrAdmin, IsClient
 from users.models import User
 from django.shortcuts import get_object_or_404
-from django.forms import model_to_dict
 
 
 class OrderView(generics.ListCreateAPIView):
