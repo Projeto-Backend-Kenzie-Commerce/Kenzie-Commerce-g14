@@ -3,7 +3,7 @@ from rest_framework.validators import UniqueValidator
 
 from orders.models import Order
 from products.models import Product
-from shop_cart.models import CartProduct
+from shop_cart.models import ShopCart
 from .models import User
 from address.models import Address
 
@@ -22,8 +22,8 @@ class ProductSerializerInUser(serializers.ModelSerializer):
 
 class CartSerializerInUser(serializers.ModelSerializer):
     class Meta:
-        model = CartProduct
-        fields = ["product", "quantity", "total"]
+        model = ShopCart
+        fields = "products"
 
 
 class OrderSerializerInUser(serializers.ModelSerializer):
