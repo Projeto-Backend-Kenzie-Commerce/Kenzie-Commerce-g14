@@ -20,6 +20,12 @@ class ProductSerializerInUser(serializers.ModelSerializer):
         fields = ["name", "price", "description", "stock_quantity"]
 
 
+# class CustomerreviewSerializerInUser(serializers.ModelSerializer):
+#     class Meta:
+#         model = CustomerReview
+#         fields = ["id", "product_id", "rating", "comment"]
+
+
 class CartSerializerInUser(serializers.ModelSerializer):
     class Meta:
         model = ShopCart
@@ -29,12 +35,13 @@ class CartSerializerInUser(serializers.ModelSerializer):
 class OrderSerializerInUser(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ["status", "product_quantity"]
+        fields = ["id", "status", "product_quantity"]
 
 
 class UserSerializer(serializers.ModelSerializer):
     addresses = AddressSerializerInUser(read_only=True, many=True)
     products = ProductSerializerInUser(read_only=True, many=True)
+    # customer_review = ProductSerializerInUser(read_only=True, many=True)
     shop_cart = ProductSerializerInUser(read_only=True, many=True)
     orders = OrderSerializerInUser(read_only=True, many=True)
 
