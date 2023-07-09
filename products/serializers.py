@@ -37,8 +37,8 @@ class ProductSerializer(serializers.ModelSerializer):
             "stock_quantity",
             "category",
             "created_at",
-            "user_id",
             "is_available",
+            "user_id",
         ]
 
         read_only_fields = ["is_available"]
