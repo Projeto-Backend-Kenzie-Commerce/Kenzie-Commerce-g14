@@ -1,7 +1,22 @@
-# M5 - BandKamp Generic View
+# M5 - Kenzie Commerce
 
 ## Instalação dos pacotes de teste
 
+- Rotas Users
+
+
+- Rotas Products
+
+
+- Rotas Addreess
+
+
+- Rotas Orders
+
+
+- Rotas Cart
+
+ 
 - Verifique se os pacotes `pytest` e/ou `pytest-testdox` estão instalados globalmente em seu sistema:
 ```shell
 pip list
