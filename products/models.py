@@ -10,7 +10,7 @@ class Product(models.Model):
     description = models.TextField()
     stock_quantity = models.IntegerField()
     category = models.CharField(max_length=80)
-    is_available = models.BooleanField(null=True, default=True)
+    is_available = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -21,7 +21,6 @@ class Product(models.Model):
     )
 
 
-    
 # RATING_CHOICES = (
 #     (1, "1 estrela"),
 #     (2, "2 estrelas"),
