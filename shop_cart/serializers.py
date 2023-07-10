@@ -5,7 +5,7 @@ from products.serializers import ProductSerializer
 
 
 class CartProductSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True, many=True)
+    # product = ProductSerializer(read_only=True, many=True)
     # total_product = serializers.SerializerMethodField(method_name="get_total_product")
 
     class Meta:
@@ -15,18 +15,20 @@ class CartProductSerializer(serializers.ModelSerializer):
     # def get_total_product(self):
     #     return sum(cart_product.total for cart_product in self.cartproduct_set.all())
 
-    def create(self, validated_data: dict) -> CartProduct:
-        return CartProduct.objects.create(**validated_data)
+
+"""     def create(self, validated_data: dict) -> CartProduct:
+        return CartProduct.objects.create(**validated_data) """
 
 
 class ShopCartSerializer(serializers.ModelSerializer):
-    cart_product = CartProductSerializer(read_only=True)
+    # cart_product = CartProductSerializer(read_only=True)
+    products = ProductSerializer(read_only=True, many=True)
     # products = CartProductSerializer(many=True, read_only=True)
     # subtotal = serializers.SerializerMethodField(method_name="get_subtotal")
 
     class Meta:
         model = ShopCart
-        fields = ["id", "cart_product"]
+        fields = ["products"]
 
     # def calculate_subtotal(self, obj: dict):
     #  obj.CartProduct.total_product = obj.products.price * obj.CartProduct.quantity
