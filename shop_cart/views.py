@@ -1,4 +1,5 @@
 from rest_framework.generics import ListCreateAPIView
+from rest_framework.views import APIView, Response, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from products.models import Product
@@ -7,35 +8,26 @@ from .serializers import CartProductSerializer, ShopCartSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
-class CartView(ListCreateAPIView):
+class CartProductView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset = ShopCart.objects.all()
-    serializer_class = ShopCartSerializer
 
-
-class CartProductView(ListCreateAPIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-    queryset = CartProduct.objects.all()
-    serializer_class = CartProductSerializer
-    lookup_url_kwarg = "pk"
-
-    def perform_create(self, serializer):
+    def patch(self, request, pk):
         user = self.request.user
-        product_id = self.kwargs["pk"]
+        # product_id = self.kwargs["pk"]
 
         try:
             shop_cart = user.shop_cart
         except ShopCart.DoesNotExist:
             shop_cart = ShopCart.objects.create(user=user)
 
-        product = Product.objects.get(pk=product_id)
-        cart_product, created = CartProduct.objects.get_or_create(
-            cart=shop_cart, product=product
-        )
+        product = Product.objects.get(pk=pk)
+        shop_cart.products.add(product)
+        shop_cart.save()
 
-        serializer.save(cart=shop_cart, product=cart_product)
+        serializer = ShopCartSerializer(shop_cart)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     # def add_products_to_cart(request):
     #     user = request.user

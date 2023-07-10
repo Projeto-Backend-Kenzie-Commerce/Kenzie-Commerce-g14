@@ -5,6 +5,7 @@ from .models import User
 from orders.models import Order
 from products.models import Product
 from shop_cart.models import ShopCart
+from shop_cart.serializers import ShopCartSerializer
 from address.models import Address
 
 
@@ -42,7 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
     addresses = AddressSerializerInUser(read_only=True, many=True)
     products = ProductSerializerInUser(read_only=True, many=True)
     # customer_review = ProductSerializerInUser(read_only=True, many=True)
-    shop_cart = CartSerializerInUser(read_only=True)
+    shop_cart = ShopCartSerializer(read_only=True)
     orders = OrderSerializerInUser(read_only=True, many=True)
 
     date_of_birth = serializers.DateField(input_formats=["%d-%m-%Y"])
