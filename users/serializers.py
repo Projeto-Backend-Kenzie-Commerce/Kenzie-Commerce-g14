@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+from .models import User
 from orders.models import Order
 from products.models import Product
 from shop_cart.models import ShopCart
-from .models import User
+from shop_cart.serializers import ShopCartSerializer
 from address.models import Address
 
 
@@ -29,7 +30,7 @@ class ProductSerializerInUser(serializers.ModelSerializer):
 class CartSerializerInUser(serializers.ModelSerializer):
     class Meta:
         model = ShopCart
-        fields = "products"
+        fields = ["cart_product"]
 
 
 class OrderSerializerInUser(serializers.ModelSerializer):
@@ -42,7 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
     addresses = AddressSerializerInUser(read_only=True, many=True)
     products = ProductSerializerInUser(read_only=True, many=True)
     # customer_review = ProductSerializerInUser(read_only=True, many=True)
-    shop_cart = ProductSerializerInUser(read_only=True, many=True)
+    shop_cart = ShopCartSerializer(read_only=True)
     orders = OrderSerializerInUser(read_only=True, many=True)
 
     date_of_birth = serializers.DateField(input_formats=["%d-%m-%Y"])
