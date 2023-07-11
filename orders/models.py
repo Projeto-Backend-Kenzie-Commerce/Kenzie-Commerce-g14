@@ -1,13 +1,16 @@
 from django.db import models
+from safedelete import SOFT_DELETE
+from safedelete.models import SafeDeleteModel
 
 
 class StatusChoices(models.TextChoices):
     CONFIRMED = "confirmed"
     IN_PROGRESS = "in_progress"
     DELIVERED = "delivered"
+    CANCELED = "canceled"
 
 
-class Order(models.Model):
+class Order(SafeDeleteModel):
     status = models.CharField(
         max_length=25, choices=StatusChoices.choices, default=StatusChoices.CONFIRMED
     )
@@ -21,3 +24,4 @@ class Order(models.Model):
         "users.User", on_delete=models.CASCADE, related_name="orders_sellers"
     )
     product = models.ManyToManyField("products.Product", related_name="orders")
+    _safedelete_policy = SOFT_DELETE
