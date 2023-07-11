@@ -29,8 +29,9 @@ class OrderSerializer(serializers.ModelSerializer):
             "is_employee",
             "product",
             "created_at",
+            "deleted",
         ]
-        read_only_fields = ["id", "created_at"]
+        read_only_fields = ["id", "created_at", "deleted"]
 
     def create(self, validated_data: dict) -> Order:
         user = validated_data.get("user")
