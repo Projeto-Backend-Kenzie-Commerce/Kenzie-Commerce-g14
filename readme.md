@@ -1,4 +1,63 @@
-# M5 - Kenzie Commerce
+<h1 align="center"> Kenzie Commerce </h1>
+
+<p align="center">
+Projeto desenvolvido por alunos da Kenzie Academy Brasil.
+</p>
+
+<p align="center">
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-documentação">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-licença">Licença</a>
+</p>
+
+
+<br>
+
+
+
+## 🚀 Tecnologias
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+- Python
+- Django
+
+## 📚  Bibliotecas
+
+Esse projeto foi desenvolvido com as seguintes bibliotecas:
+
+- djangorestframework
+- djangorestframework-simplejwt
+- drf-spectacular
+- gunicorn
+- psycopg2-binary
+- python-dotenv
+- whitenoise
+- pytest
+
+## 💻 Projeto
+
+Apresentamos o Kenzie Commerce, um sistema para impulsionar seu e-commerce. Com nossa tecnologia avançada, você terá uma plataforma eficiente e amigável. Imagine uma ferramenta inteligente que conecta todas as partes do seu negócio, como cadastro de produtos, vendas e gerenciamento de pedidos, permitindo que trabalhem juntas harmoniosamente. Além disso, você pode definir diferentes níveis de acesso para administradores, vendedores e clientes, garantindo controle e segurança. Nossa equipe especializada cuidou de todos os detalhes técnicos, permitindo que você se concentre no crescimento do seu negócio. Estamos aqui para ajudar e responder a quaisquer perguntas que você possa ter.
+
+## 🔖 Documentação
+
+Você pode visualizar a documentação do projeto através desse [link](https://kenzie-commerce-web-service.onrender.com/api/docs/redoc/).
+
+## :memo: Licença
+
+Esse projeto está sob a licença da Kenzie Academy Brasil.
+
+---
+
+##  📱 Contatos
+
+- https://www.linkedin.com/in/daniel-willian-260204246/
+- https://www.linkedin.com/in/alysson-fernandes-cisne/
+- https://www.linkedin.com/in/patrick-almeida-64b897237/
+- https://www.linkedin.com/in/gustavocmasscarenhas/
+
+<br>
 
 ## Instalação dos pacotes de teste
 
@@ -78,12 +137,22 @@ Caso você tenha interesse em rodar apenas um diretório de testes específico, 
 pytest --testdox -vvs tests/users/
 ```
 
-- Rodando testes de albums:
+- Rodando testes de orders:
 ```python
-pytest --testdox -vvs tests/albums/
+pytest --testdox -vvs tests/orders/
 ```
 
-- Rodando testes de songs:
+- Rodando testes de address:
 ```python
-pytest --testdox -vvs tests/songs/
+pytest --testdox -vvs tests/address/
+```
+
+- Rodando testes de shop_cart:
+```python
+pytest --testdox -vvs tests/cart/
+```
+
+- Rodando testes de products:
+```python
+pytest --testdox -vvs tests/products/
 ```

@@ -14,7 +14,6 @@ class CartProductView(APIView):
 
     def patch(self, request, pk):
         user = self.request.user
-        # product_id = self.kwargs["pk"]
 
         try:
             shop_cart = user.shop_cart
@@ -29,21 +28,14 @@ class CartProductView(APIView):
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # def add_products_to_cart(request):
-    #     user = request.user
-    #     products = Product.objects.all()
+    def delete(self, request, pk):
+        user = self.request.user
 
-    #     if products:
-    #         cart, created = ShopCart.objects.get_or_create(user=user)
+        shop_cart = ShopCart.objects.get(user=user)
 
-    #         for product_data in products:
-    #             product = Product.objects.create(**product_data)
-    #             cart_product = CartProduct.objects.create(cart=cart, product=product)
-    #             # Define a quantidade e o total com base nas informações da API
-    #             cart_product.quantity = product_data["quantity"]
-    #             cart_product.total = product_data["total"]
-    #             cart_product.save()
+        cart_shop = shop_cart.products.filter(id=pk).first()
 
-    #             return ShopCart.objects.all()
-    #         else:
-    #             return ShopCart.objects.all()
+        shop_cart.products.remove(cart_shop)
+        shop_cart.save()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
