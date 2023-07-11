@@ -42,7 +42,7 @@ Apresentamos o Kenzie Commerce, um sistema para impulsionar seu e-commerce. Com 
 
 ## 🔖 Documentação
 
-Você pode visualizar a documentação do projeto através desse [link](https://www.figma.com/file/gpqavL469k0pPUGOmAQEM9/Explorer-Lab-%2301/duplicate).
+Você pode visualizar a documentação do projeto através desse [link](https://kenzie-commerce-web-service.onrender.com/api/docs/redoc/).
 
 ## :memo: Licença
 
