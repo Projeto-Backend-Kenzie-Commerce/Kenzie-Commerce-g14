@@ -8,10 +8,10 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 
-def mailing(product, email):
+def mailing(product, email, message):
     send_mail(
         subject="Descrição do pedido - Kenzie commerce",
-        message=f"Pedido do produto {product} foi confirmado, em breve o vendedor do produto colocará seu pedido para produção.",
+        message=message,
         from_email=settings.EMAIL_HOST_USER,
         recipient_list=[email],
         fail_silently=False,
@@ -31,12 +31,10 @@ class OrderSerializer(serializers.ModelSerializer):
             "created_at",
             "deleted",
         ]
-        read_only_fields = ["id", "created_at", "deleted"]
+        read_only_fields = ["id", "created_at", "deleted", "user", "is_employee"]
 
     def create(self, validated_data: dict) -> Order:
-        user = validated_data.get("user")
-        validated_data.pop("user")
-        validated_data.pop("is_employee")
+        user = self.context.get("request").user
         quantity = validated_data.get("product_quantity")
         data_products = validated_data.pop("product", [])
 
@@ -52,7 +50,11 @@ class OrderSerializer(serializers.ModelSerializer):
             products.append(product)
 
         email = get_object_or_404(User, id=user.id)
-        mailing(product=products[0].name, email=email.email)
+        mailing(
+            product=products[0].name,
+            email=email.email,
+            message=f"Pedido do produto {products[0]} foi confirmado, em breve o vendedor do produto colocará seu pedido para produção.",
+        )
 
         order = Order.objects.create(**validated_data)
         order.product.set(products)
@@ -63,4 +65,17 @@ class OrderSerializer(serializers.ModelSerializer):
         if status:
             instance.status = status
             instance.save()
+
+        message = ""
+        if status == "delivered":
+            message = "entrege, obrigado por comprar conosco!"
+        else:
+            message = "colocado em produção, aguarde novas atualizações."
+
+        mailing(
+            product=instance.product.first().name,
+            email=instance.user.email,
+            message=f"Pedido do produto {instance.product.first().name} foi {message}",
+        )
+
         return instance
